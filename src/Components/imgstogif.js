@@ -1,11 +1,11 @@
 import React from 'react'
 import  '../App.css';
 export default function Imgstogif() {
-    const [images, setImages] = React.useState([]);
-    const [gifUrl, setGifUrl] = React.useState('');
+    // const [images, setImages] = React.useState([]);
+    // const [gifUrl, setGifUrl] = React.useState('');
     const handleUpload = (event) => {
         const files = Array.from(event.target.files);
-        setImages(files);
+        // setImages(files);
         alert(`${files.length} images selected`);   
     }
   return (

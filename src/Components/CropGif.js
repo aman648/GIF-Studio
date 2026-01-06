@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function CropGif() {
-    const [gifFile, setGifFile] = React.useState(null);
+    
     const [x, setX] = React.useState(0);
     const [y, setY] = React.useState(0);
     const [width, setWidth] = React.useState(200);
