@@ -15,10 +15,11 @@ function App() {
 
   return (
     <>
-      <Headers></Headers>
+      
     
    
      <BrowserRouter>
+     <Headers></Headers>
       
        
         <Routes>

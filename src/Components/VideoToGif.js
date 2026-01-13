@@ -1,24 +1,42 @@
 import React from 'react'
 
 export default function VideoToGif() {
-   
+    
+    const [file, setFile] = React.useState(null);
     const [gifUrl, setGifUrl] = React.useState('');
-    const handleUpload = (event) => {
+    const handleUpload = () => {
+        if (!file) return;
+        const url = 'https://backend-gifstudio.onrender.com/vedio_gif'
+        const formData = new FormData();
+        formData.append('video', file);
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            setGifUrl(data.gifUrl);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    const handlechange = (event) => {
         const file = event.target.files[0];
         if (!file) return;
-        // Placeholder logic for converting video to GIF
-        // In a real application, you would process the video file here
-        const fakeGifUrl = URL.createObjectURL(file); // This is just a placeholder
-        setGifUrl(fakeGifUrl);
-        alert(`Video selected: ${file.name}`);
+        setFile(file);
     }
   return (
    <div className='App-header'>
       <h2>Video to GIF</h2>
-      <input type="file" accept="video/*" onChange={handleUpload} />
+      <div className="preview-box">
+        {file && <video src={URL.createObjectURL(file)} controls style={{ width: '100%' }} />}
+      </div>
+      <input type="file" accept="video/*" onChange={handlechange} />
       <input type="text" placeholder="Width" />
-      {gifUrl && <img src={gifUrl} alt="Generated GIF" />}
-      {gifUrl && <a href={gifUrl} download>Download</a>}
+      <button className="btn-gif" onClick={handleUpload}>Convert to GIF</button>
+      {gifUrl && <div className='result'><img src={gifUrl} alt="Generated GIF" /></div>}
+      {gifUrl && <div className='download'><a href={gifUrl} download>Download</a></div>}
     </div>
   )
 }
